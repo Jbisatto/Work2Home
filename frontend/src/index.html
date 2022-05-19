@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Work 2 Home</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./assets/logo.svg">
+  <meta name="google-signin-client_id" content="624234946356-ven0mcpkp9ntnrin5gamh132jos0j1lo.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</head>
+<body>
+  <app-root></app-root>
+  <script defer>
+    window.addEventListener('load', () => {
+      let googleAuth;
+      gapi.load('auth2', function() {
+
+        gapi.auth2.init({
+          client_id: '624234946356-ven0mcpkp9ntnrin5gamh132jos0j1lo.apps.googleusercontent.com',
+          prompt: 'select_account'
+        });
+        googleAuth = gapi.auth2.getAuthInstance();
+
+        googleAuth.attachClickHandler('form__button-login-google', {
+          client_id: '624234946356-ven0mcpkp9ntnrin5gamh132jos0j1lo.apps.googleusercontent.com',
+        }, onSuccess, onFailure)
+      });
+    })
+    async function onSuccess(googleUser) {
+      let id_token = googleUser.getAuthResponse().id_token;
+      
+      let headers = new Headers();
+      headers.append("Content-Type", "application/json");
+
+      const tokensResponse = await fetch('http://localhost:8080/auth/google-login', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            googleToken: id_token
+          })
+      });
+
+      const tokens = await tokensResponse.json();
+
+      localStorage.setItem('accessToken', JSON.stringify(tokens.accessToken));
+      localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
+
+      gapi.auth2.getAuthInstance().signOut();
+
+      window.location.reload();
+    }
+    function onFailure(err) {
+      console.log(err);
+    }
+    window.console.error = () => {};
+  </script>
+</body>
+</html>

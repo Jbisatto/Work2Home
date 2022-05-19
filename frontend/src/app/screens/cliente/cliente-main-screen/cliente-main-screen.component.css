@@ -1,0 +1,60 @@
+.hr__main{
+  width: 100%;
+  border-bottom: 2px solid var(--font-primary);
+}
+
+.logo{
+  width: 80px;
+  margin: 25px;
+}
+
+main{
+   overflow-x: hidden !important;
+}
+
+#servicos{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.categorias__title {
+  margin-bottom: 250px !important;
+}
+
+.horizontalCards-categorias {
+  padding-left: 10px;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.color-white{
+  color: var(--font-fourth);
+}
+
+#cbxStatus{
+  width: calc(100vw - (100vw * 0.8));
+  min-width: 130px;
+  border: none;
+  background-color: transparent;
+}
+.div-descricao{
+  background-color: var(--background-secondary);
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-descricao i{
+  font-size: 136px;
+}
+
+.imagem__div{
+  height: 200px;
+
+}
+
+.imagem__os{
+  height: 200px;
+}

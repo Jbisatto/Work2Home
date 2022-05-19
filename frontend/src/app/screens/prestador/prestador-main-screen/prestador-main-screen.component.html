@@ -1,0 +1,45 @@
+<app-sidebar></app-sidebar>
+<main>
+
+  <div class="hr__main py-2 mt-4 mb-3" id="servicos">
+
+    <div>
+      Seus serviços
+    </div>
+
+    <form>
+
+      <select id="cbxStatus" class="form-select form-control form__input form__input-staus pointer" (change)="getServicosByStatus()"
+          name="cbxStatusServico" [(ngModel)]="cbxStatus">
+        <option value="-1">Todos ({{ordensServico.length}})</option>
+        <option value="0">Solicitados ({{qtdStatusOs[0]}})</option>
+        <option value="1">Em orçamento ({{qtdStatusOs[1]}})</option>
+        <option value="2">Em andamento ({{qtdStatusOs[2]}})</option>
+        <option value="3">Finalizados ({{qtdStatusOs[3]}})</option>
+        <option value="4">Negados ({{qtdStatusOs[4]}})</option>
+      </select>
+
+    </form>
+  </div>
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-4 col-lg-3 col-sm-6 mb-3 pointer"  routerLink="/ordem-servico/{{os.id}}"
+        *ngFor="let os of ordensServico">
+        <div class="card div-descricao">
+          <div class="imagem__div">
+          <img *ngIf="os.imagemUrl" src="{{environment.apiHostAddress + '/' + os.imagemUrl}}" class="img-fluid imagem__os" alt="imagem do serviço">
+           <i *ngIf="!os.imagemUrl" class="bi bi-card-image"></i>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{os.nomeCliente}}</h5>
+            <p>{{os.descricao}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
